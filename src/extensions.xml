@@ -1,13 +1,16 @@
 <?xml version="1.0"?>
 
-<extension name="DisplayModeIcons" version="1.2">
+<extension name="DisplayModeIcons" version="1.3">
 	<plugin class="artofillusion.displaymodeicons.DisplayModeIconsPlugin"/>
 	<author>Francois Guillet</author>
-	<date>2008/05/02</date>
+	<date>2011-06-03</date>
     <description>
 This plugin replaces the display mode dropdown list with a set of icons.
     </description>
     <history>
+		<log version="1.3" date="June 2011" author="TroY">
+Made the plugin compatible with AoI 2.9ea2.
+		</log>
     	<log version="1.2" date="Jan 2009" author="Francois et Nik TJ">
 - Changes for compatibility with AOI 2.7
 - fixed a problem that could show up if other ViewerControls had been installed (by another plugin)	
