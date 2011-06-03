@@ -71,8 +71,17 @@ public class DisplayModeIconsPlugin implements Plugin {
 		}
 	    }
 	    ViewerCanvas[] views = window.getAllViews();
-	    if (mode > -1) for (int i = 0; i < 4; i++) {
-		views[i].setRenderMode(mode);
+	    if (mode > -1) {
+		if (mode == 5) {
+		    for (int i = 0; i < 4; i++) {
+			views[i].setRenderMode(ViewerCanvas.RENDER_TEXTURED);
+		    }
+		    window.getView().setRenderMode(mode);
+		} else {
+		    for (int i = 0; i < 4; i++) {
+			views[i].setRenderMode(mode);
+		    }
+		}
 	    }
 	}
     }
