@@ -20,6 +20,7 @@ import buoy.widget.Widget;
 import artofillusion.ViewerCanvas;
 import artofillusion.ui.ThemeManager;
 import artofillusion.ui.ToolButtonWidget;
+import artofillusion.ui.EditingTool;
 import artofillusion.view.ViewChangedEvent;
 import artofillusion.view.ViewerControl;
 
@@ -62,7 +63,7 @@ public class DisplayModeViewerControl implements ViewerControl {
 		}
 
 		private void reflectCanvasState() {
-			for (int i = 0; i < 5; i++) {
+			for (int i = 0; i < buttons.length; i++) {
 				buttons[i].setSelected(false);
 			}
 			switch (canvas.getRenderMode()) {
@@ -114,6 +115,17 @@ public class DisplayModeViewerControl implements ViewerControl {
 							canvas.setRenderMode(ViewerCanvas.RENDER_TRANSPARENT);
 							break;
 						case 5:
+							EditingTool t = canvas.getCurrentTool();
+							if (t != null)
+							{
+								for (ViewerCanvas view : t.getWindow().getAllViews())
+								{
+									if (view != canvas && view.getRenderMode() == ViewerCanvas.RENDER_RENDERED)
+									{
+										view.setRenderMode(ViewerCanvas.RENDER_TEXTURED);
+									}
+								}
+							}
 							canvas.setRenderMode(ViewerCanvas.RENDER_RENDERED);
 							break;
 						}
