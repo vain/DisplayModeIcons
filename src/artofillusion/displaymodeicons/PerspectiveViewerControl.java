@@ -54,8 +54,11 @@ public class PerspectiveViewerControl implements ViewerControl {
 		}
 
 		private void doButtonPressed() {
-			canvas.setPerspective(button.isSelected());
-			canvas.repaint();
+			if (canvas.getRenderMode() != ViewerCanvas.RENDER_RENDERED)
+			{
+				canvas.setPerspective(button.isSelected());
+				canvas.repaint();
+			}
 		}
 	}
 }
