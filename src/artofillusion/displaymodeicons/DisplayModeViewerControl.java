@@ -43,18 +43,19 @@ public class DisplayModeViewerControl implements ViewerControl {
 			super();
 			this.canvas = canvas;
 			canvas.addEventLink(ViewChangedEvent.class, this, "reflectCanvasState");
-			buttons = new ToolButtonWidget[5];
+			buttons = new ToolButtonWidget[6];
 			buttons[0] = new ToolButtonWidget(ThemeManager.getToolButton(this, "displaymodeicons:wireframe"));
 			buttons[1] = new ToolButtonWidget(ThemeManager.getToolButton(this, "displaymodeicons:shaded"));
 			buttons[2] = new ToolButtonWidget(ThemeManager.getToolButton(this, "displaymodeicons:smooth"));
 			buttons[3] = new ToolButtonWidget(ThemeManager.getToolButton(this, "displaymodeicons:textured"));
 			buttons[4] = new ToolButtonWidget(ThemeManager.getToolButton(this, "displaymodeicons:transparent"));			
+			buttons[5] = new ToolButtonWidget(ThemeManager.getToolButton(this, "displaymodeicons:rendered"));
 			add(buttons[0], new LayoutInfo(LayoutInfo.CENTER, LayoutInfo.NONE, new Insets(0, 3, 0, 0), new Dimension(0,0)));
-			for (int i = 1; i < 4; i++) {
+			for (int i = 1; i < buttons.length - 1; i++) {
 				add(buttons[i]);
 			}
-			add(buttons[4], new LayoutInfo(LayoutInfo.CENTER, LayoutInfo.NONE, new Insets(0, 0, 0, 3), new Dimension(0,0)));
-			for (int i = 0; i < 5; i++) {
+			add(buttons[buttons.length - 1], new LayoutInfo(LayoutInfo.CENTER, LayoutInfo.NONE, new Insets(0, 0, 0, 3), new Dimension(0,0)));
+			for (int i = 0; i < buttons.length; i++) {
 				buttons[i].addEventLink(ValueChangedEvent.class, this, "doButtonPressed");
 			}
 			reflectCanvasState();
@@ -80,7 +81,9 @@ public class DisplayModeViewerControl implements ViewerControl {
 			case ViewerCanvas.RENDER_TRANSPARENT:
 				buttons[4].setSelected(true);
 				break;
-				
+			case ViewerCanvas.RENDER_RENDERED:
+				buttons[5].setSelected(true);
+				break;
 			}
 		}
 		
@@ -90,7 +93,7 @@ public class DisplayModeViewerControl implements ViewerControl {
 				//select the button back
 				tbw.setSelected(true);
 			} else {
-				for (int i = 0; i < 5; i++) {
+				for (int i = 0; i < buttons.length; i++) {
 					if (buttons[i] != tbw && buttons[i].isSelected()) {
 						buttons[i].setSelected(false);
 					} else if (buttons[i] == tbw) {
@@ -109,6 +112,9 @@ public class DisplayModeViewerControl implements ViewerControl {
 							break;
 						case 4:
 							canvas.setRenderMode(ViewerCanvas.RENDER_TRANSPARENT);
+							break;
+						case 5:
+							canvas.setRenderMode(ViewerCanvas.RENDER_RENDERED);
 							break;
 						}
 					}

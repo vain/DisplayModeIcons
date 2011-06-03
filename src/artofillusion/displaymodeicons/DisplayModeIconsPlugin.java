@@ -38,14 +38,14 @@ public class DisplayModeIconsPlugin implements Plugin {
 	    BMenuBar menuBar = window.getMenuBar();
 	    BMenu menu = menuBar.getChild(2);
 	    menu = (BMenu) menu.getChild(3);
-	    BCheckBoxMenuItem[] items = new BCheckBoxMenuItem[5];
-	    for (int i = 0; i < 5; i++) {
+	    BCheckBoxMenuItem[] items = new BCheckBoxMenuItem[6];
+	    for (int i = 0; i < items.length; i++) {
 		items[i] = (BCheckBoxMenuItem)(menu.getChild(i));
 		items[i].setState(false);
 	    }
 	    Widget w = ev.getWidget();
 	    int mode = -1;
-	    for (int i = 0; i < 5; i++) {
+	    for (int i = 0; i < items.length; i++) {
 		if (items[i] == w) {
 		    switch(i) {
 		    case 0:
@@ -62,6 +62,9 @@ public class DisplayModeIconsPlugin implements Plugin {
 			break;
 		    case 4:
 			mode = ViewerCanvas.RENDER_TRANSPARENT;
+			break;
+		    case 5:
+			mode = ViewerCanvas.RENDER_RENDERED;
 			break;
 		    }
 		    items[i].setState(true);
@@ -107,12 +110,14 @@ public class DisplayModeIconsPlugin implements Plugin {
 	     ((BCheckBoxMenuItem)(menu.getChild(2))).removeEventLink(CommandEvent.class, window);
 	     ((BCheckBoxMenuItem)(menu.getChild(3))).removeEventLink(CommandEvent.class, window);
 	     ((BCheckBoxMenuItem)(menu.getChild(4))).removeEventLink(CommandEvent.class, window);
+	     ((BCheckBoxMenuItem)(menu.getChild(5))).removeEventLink(CommandEvent.class, window);
 	     AllViewsDisplayMenuManager manager = new AllViewsDisplayMenuManager(window);
 	     ((BCheckBoxMenuItem)(menu.getChild(0))).addEventLink(CommandEvent.class, manager, "doProcess");
 	     ((BCheckBoxMenuItem)(menu.getChild(1))).addEventLink(CommandEvent.class, manager, "doProcess");
 	     ((BCheckBoxMenuItem)(menu.getChild(2))).addEventLink(CommandEvent.class, manager, "doProcess");
 	     ((BCheckBoxMenuItem)(menu.getChild(3))).addEventLink(CommandEvent.class, manager, "doProcess");
 	     ((BCheckBoxMenuItem)(menu.getChild(4))).addEventLink(CommandEvent.class, manager, "doProcess");
+	     ((BCheckBoxMenuItem)(menu.getChild(5))).addEventLink(CommandEvent.class, manager, "doProcess");
 
 	 }
      }
