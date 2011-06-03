@@ -9,6 +9,7 @@
   <property name="docs" value="./docs" />
   <property name="dist" value="${aoilocation}/Plugins" />
   <property name="aoijar" value="${aoilocation}/ArtOfIllusion.jar" />
+  <property name="buoyjar" value="${aoilocation}/lib/Buoy.jar" />
 
   <target name="init">
     <!-- Create the time stamp -->
@@ -21,7 +22,7 @@
 
   <target name="compile" depends="init">
     <!-- Compile the java code from ${src} into ${build} -->
-    <javac source="1.5" target="1.5" srcdir="${src}" destdir="${build}" classpath="${aoijar}:${mtjjar}" debug="on" extdirs="" />
+    <javac source="1.5" target="1.5" srcdir="${src}" destdir="${build}" classpath="${aoijar}:${buoyjar}" debug="on" extdirs="" />
   </target>
 
   <target name="dist" depends="compile">
